@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const TaskItem = props => {
   return (
     <TouchableOpacity  >
-      <View style={styles.listItem}>
+      <View style={styles.listItem} >
         <Text>{props.title}</Text>
       </View>
     </TouchableOpacity>

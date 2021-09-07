@@ -1,6 +1,6 @@
 import {
     CREATE_TASK,
-   SET_TASK
+   SET_TASK,
   } from '../Actions/TaskActions';
   import Tasks from '../../models/Tasks';
 

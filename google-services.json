@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "747317285915",
+    "firebase_url": "https://to-do-app-6cdc5-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "to-do-app-6cdc5",
+    "storage_bucket": "to-do-app-6cdc5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747317285915:android:d4ec64ab3e07d148e754be",
+        "android_client_info": {
+          "package_name": "com.hiphop_head.groww"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "747317285915-c4c33bof1bj0nvf7olkoe7d9eh03ckgl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hiphop_head.groww",
+            "certificate_hash": "25cda24726d7b38a0e207919d165aa9b88f696be"
+          }
+        },
+        {
+          "client_id": "747317285915-pte3kru2i6u7tto2li8dtgsfrh9uf3t3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtygecJNprblTKvn6Q53BxD6B_aITvBs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "747317285915-gq9k8fqbnoehmdo4vmveaso8r3bschoj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "747317285915-1q53rq4lq318bh09t7ovtap5qslf3v2u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hiphop_head.groww"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

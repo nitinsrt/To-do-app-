@@ -1,44 +1,44 @@
-import React from "react";
-import {View,Text,StyleSheet,TouchableOpacity} from"react-native";
-import * as GoogleAuthentication from "expo-google-app-auth";
+import React,{useEffect,useCallback} from "react";
+import {View,Text,StyleSheet,TouchableOpacity,Platform} from"react-native";
+import * as GoogleSignIn from "expo-google-sign-in";
+import {SocialIcon} from "react-native-elements"
 
-import firebase from "firebase";
 
 const LoginScreen=(props)=>{
-    const signInWithGoogle = async() => {
-          try{
-                const result= await GoogleAuthentication.logInAsync({
-                    androidClientId: '747317285915-fifgr4it5ful4kkjjp03a902qj4b1m6n.apps.googleusercontent.com',
-                    iosClientId: '747317285915-ssiiea0r08t4cntlolkc60mheo7b8jff.apps.googleusercontent.com',
-                    scopes: ['profile', 'email']
-                });
-            if (result.type === 'success') {
-                const { idToken, accessToken } = result;
-                const credential = firebase.auth.GoogleAuthProvider.credential(
-                    idToken,
-                    accessToken
-                );
-                firebase.auth().signInWithCredential(credential);
-               
-                props.navigation.navigate('home');
-              
-            }else{
-                return{cancelled:true};
-            }
-        }catch(error){
-            console.log(error);
+   useEffect(()=>{
+       initAsync();
+   });
+   
+     const initAsync = async () => {
+        await GoogleSignIn.initAsync();
+        _syncUserWithStateAsync();
+      };
+    
+      const _syncUserWithStateAsync = async () => {
+        const user = await GoogleSignIn.signInSilentlyAsync();
+      };
+    
+    
+      const signInAsync = async () => {
+        try {
+          await GoogleSignIn.askForPlayServicesAsync();
+          const { type, user } = await GoogleSignIn.signInAsync();
+          console.log(user);
+          if (type === 'success') {
+            _syncUserWithStateAsync();
+            props.navigation.navigate("home");
+          }
+        } catch ({ message }) {
+          alert('login: Error:' + message);
         }
-           
-    }
+      };
 
    
     return (
         <View style={style.screen}>
-            <TouchableOpacity onPress={signInWithGoogle}>
-                <View style={style.googleButton}>
-                <Text> Login with google</Text>
-                </View>
-             </TouchableOpacity>
+             <SocialIcon type="google" button title="Sign In With Google" raised="true" onPress={signInAsync} style={{padding:"2%",backgroundColor:'white'}}
+             iconColor="red" fontStyle={{color:'black'}}
+             />
          </View>
     );
 }
@@ -46,18 +46,11 @@ const LoginScreen=(props)=>{
 
 const style=StyleSheet.create({
     screen : {
-        flex: 1,
+        flex:1,
         alignItems: 'center',
-        justifyContent: 'center'
-    },
-      googleButton:{
-          width: '80%',
-          height: '25%',
-          backgroundColor:"white",
-          borderColor:"black",
-          elevation:5,
-          padding:10
-      }
+        justifyContent: 'center',
+        backgroundColor: "#e6ffff"
+    }
 });
 
 export default LoginScreen;

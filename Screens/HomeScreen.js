@@ -1,14 +1,17 @@
 import React, { useCallback, useState ,useEffect} from 'react';
 import { StyleSheet, View, Button, FlatList,Alert,Text, ActivityIndicator } from 'react-native';
 import firebase from 'firebase';
-import {useDispatch,useSelector} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux';
+import * as GoogleSignIn from "expo-google-sign-in";
 
 import TaskItem from '../components/TaskItem';
 import TaskInput from '../components/TaskInput';
 import * as TaskActions from "../Store/Actions/TaskActions";
 
 const Home=(props)=> {
-
+  const signOutAsync = async () => {
+    await GoogleSignIn.disconnectAsync();
+  };
   const [isLoading,setisLoading]=useState(true);
 
   const dispatch=useDispatch();
@@ -17,7 +20,7 @@ const Home=(props)=> {
     try{
       await dispatch(TaskActions.fetchProducts());
     }catch (err){
-      console.log("No Output");
+      Alert.alert("Error","No Task to show, Lets add some",[{text:"Yes",style:"cancel" }])
     }
   },[dispatch]);
 
@@ -26,7 +29,7 @@ const Home=(props)=> {
 loadingProducts().then(()=>{
     setisLoading(false)
 })
-},[dispatch,loadingProducts]);
+},[loadingProducts]);
 
   const [isAddMode, setIsAddMode] = useState(false);
 
@@ -71,9 +74,8 @@ loadingProducts().then(()=>{
         )}
       />
       <View style={styles.logout}>
-       
       <Button title="logout" onPress={()=>{
-        Alert.alert("Log Out","Are You Sure you want to log out?",[{text:"Yes",onPress:()=>{firebase.auth().signOut()}}])
+        Alert.alert("Log Out","Are You Sure you want to log out?",[{text:"Yes",onPress:{signOutAsync}}])
       }}/>
       </View>
     </View>
@@ -86,8 +88,7 @@ const styles = StyleSheet.create({
   },
   logout:{
     marginTop:'20%'
-  },
-  
+  }
 });
 
 export default Home;
